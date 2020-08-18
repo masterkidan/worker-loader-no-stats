@@ -22,6 +22,7 @@
   },
   "scripts": {
     "build:analyze": "node --max_old_space_size=4096 ./node_modules/webpack/bin/webpack.js --config webpack.config.js --env.analyzeWorker=true",
-    "build": "node --max_old_space_size=4096 ./node_modules/webpack/bin/webpack.js --config webpack.config.js"
+    "build": "node --max_old_space_size=4096 ./node_modules/webpack/bin/webpack.js --config webpack.config.js",
+    "dev": "npx webpack-dev-server"
   }
 }
