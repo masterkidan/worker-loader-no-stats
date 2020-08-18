@@ -27,3 +27,6 @@ window.clearTimeout = function(id) {
   worker.postMessage({command: "clearTimeout", id: id});
   delete timeouts[id];
 };
+
+console.log("hello world");
+window.setTimeout(() => console.log("hello world after 5 sec"), 5*1000);

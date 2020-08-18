@@ -1,6 +1,29 @@
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
     .BundleAnalyzerPlugin;
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { plugins } = require("acorn");
+const getPlugins = (env) => {
+    const plugins = [];
+    plugins.push(new HtmlWebpackPlugin({
+        title: "Worker-loader bundle analyzer repro"
+    }));
+    if (env && env.analyzeWorker) {
+        plugins.push(
+            new BundleAnalyzerPlugin({
+                analyzerMode: "server",
+                // analyzerHost: "172.17.86.172", // Set this option if you are running Docker/WSL
+                analyzerPort: 8888,
+                generateStatsFile: true,
+                statsOptions: {
+                    chunkModules: true // allows usage with webpack-visualizer
+                },
+                logLevel: "silent"
+            })  
+        );
+    }
+    return plugins;
+}
 module.exports = env => ({
     mode: "production",
     entry: ["./src/index.js"],
@@ -40,16 +63,5 @@ module.exports = env => ({
             },
         ],
     },
-    plugins: env && env.analyzeWorker ? [
-        new BundleAnalyzerPlugin({
-            analyzerMode: "server",
-            // analyzerHost: "172.17.86.172", // Set this option if you are running Docker/WSL
-            analyzerPort: 8888,
-            generateStatsFile: true,
-            statsOptions: {
-                chunkModules: true // allows usage with webpack-visualizer
-            },
-            logLevel: "silent"
-        })
-    ]: []
+    plugins: getPlugins(env)
 });
