@@ -1,0 +1,26 @@
+{
+  "name": "worker-loader-example",
+  "version": "1.0.0",
+  "description": "Repro of failure of geneartion of stats for worker-loader",
+  "main": "index.js",
+  "author": "mukav",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "lodash": "^4.17.20"
+  },
+  "devDependencies": {
+    "import-local": "^3.0.2",
+    "terser-webpack-plugin": "^4.1.0",
+    "webpack": "4.0.0",
+    "webpack-bundle-analyzer": "^3.8.0",
+    "webpack-cli": "3.1.0",
+    "webpack-dev-server": "3.0.0",
+    "worker-loader": "^3.0.1",
+    "yargs": "^15.4.1"
+  },
+  "scripts": {
+    "build:analyze": "node --max_old_space_size=4096 ./node_modules/webpack/bin/webpack.js --config webpack.config.js --env.analyzeWorker=true",
+    "build": "node --max_old_space_size=4096 ./node_modules/webpack/bin/webpack.js --config webpack.config.js"
+  }
+}
